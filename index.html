@@ -12,49 +12,78 @@
 
     <div class="main">
         
-
-        
-        
     </div>
     
     <div class="main2">
         
-        
     </div>
     
     <div class="main3">
-        
         <button class="reroll" >Give me a world!</button>
-    </div>    
+    </div>   
+
 </body>
 
 <script>
-    console.log(abc)
+    let selectedWord=""
+    let choosenWord=""
     let abcArray=abc.split('')
     init()
 
     function init(){
         abcArray.forEach(element => {
-            console.log(element)
+            //console.log(element)
             document.querySelector('.main2').innerHTML+=`<div class="abc">${element}</div>`
         });
-
+        
     }
-
+    
     
     function giveWord(){
+        selectedWord=""
         document.querySelector('.main').innerHTML=''
         console.log("we're workin boss!")
         let randIndex= Math.floor(Math.random() * words.length);
-        let choosenWord=Array.from(words[randIndex])
-        console.log(choosenWord)
+        choosenWord=Array.from(words[randIndex])
+        //console.log(choosenWord)
         choosenWord.forEach(element => {
-            document.querySelector('.main').innerHTML+=`<div class="wordbox">${element}</div>`
+            document.querySelector('.main').innerHTML+=
+            `<div class="wordbox">
+                <p class="GuessLetter">${element}</p>
+            </div>`
         });
 
     }
+
+    function checkLetter(event){
+        console.log(event.target.innerText)
+        console.log("We checkin' ")
+        console.log(choosenWord)
+        choosenWord.forEach(element => {
+            if(element==event.target.innerText){
+                console.log("match")
+                document.querySelectorAll('.GuessLetter').forEach((value)=>{
+                        if(value.innerText==event.target.innerText){
+                            value.style.display= "block"
+                        }
+                })
+            }
+        })
+
+
+        
+
+    }
+
+
     
     document.querySelector('.reroll').addEventListener('click',giveWord)
+
+    document.querySelectorAll('.abc').forEach((value)=>{
+        value.addEventListener('click',checkLetter)
+
+    })
+
 
 
 </script>
