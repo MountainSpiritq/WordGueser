@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="word.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+    <div class="main">
+        
+
+        
+        
+    </div>
+    
+    <div class="main2">
+        
+        
+    </div>
+    
+    <div class="main3">
+        
+        <button class="reroll" >Give me a world!</button>
+    </div>    
+</body>
+
+<script>
+    console.log(abc)
+    let abcArray=abc.split('')
+    init()
+
+    function init(){
+        abcArray.forEach(element => {
+            console.log(element)
+            document.querySelector('.main2').innerHTML+=`<div class="abc">${element}</div>`
+        });
+
+    }
+
+    
+    function giveWord(){
+        document.querySelector('.main').innerHTML=''
+        console.log("we're workin boss!")
+        let randIndex= Math.floor(Math.random() * words.length);
+        let choosenWord=Array.from(words[randIndex])
+        console.log(choosenWord)
+        choosenWord.forEach(element => {
+            document.querySelector('.main').innerHTML+=`<div class="wordbox">${element}</div>`
+        });
+
+    }
+    
+    document.querySelector('.reroll').addEventListener('click',giveWord)
+
+
+</script>
+
+</html>
