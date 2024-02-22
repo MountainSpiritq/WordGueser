@@ -19,6 +19,7 @@ body{
     -webkit-user-select:none;
     -moz-user-select:none;
     user-select:none;
+    text-transform: capitalize;
 
 }
 
@@ -36,6 +37,7 @@ body{
     -webkit-user-select:none;
     -moz-user-select:none;
     user-select:none;
+    text-transform: capitalize;
 
 }
 
@@ -61,6 +63,7 @@ body{
 
 .main2{
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }

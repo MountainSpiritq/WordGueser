@@ -60,10 +60,10 @@
         console.log("We checkin' ")
         console.log(choosenWord)
         choosenWord.forEach(element => {
-            if(element==event.target.innerText){
+            if(element==event.target.innerHTML){
                 console.log("match")
                 document.querySelectorAll('.GuessLetter').forEach((value)=>{
-                        if(value.innerText==event.target.innerText){
+                        if(value.innerHTML==event.target.innerHTML){
                             value.style.display= "block"
                         }
                 })
