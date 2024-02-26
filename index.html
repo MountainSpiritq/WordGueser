@@ -3,89 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="word.js"></script>
+    <title>Hangman Game</title>
+    
     <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
 
-    <div class="main">
-        
-    </div>
+    <div class="main"></div>
     
-    <div class="main2">
-        
-    </div>
+    <div class="main2"></div>
     
     <div class="main3">
-        <button class="reroll" >Give me a world!</button>
-    </div>   
+        <button class="reroll">Give me a word!</button>
+    </div>
+    
+    <div class="hangedman">
+        <canvas id="hangman" width="180" height="250"></canvas>
+    </div>
+
+    <div class="loose">
+        <p>Vesztettél</p>
+    </div>
+
+    <script src="word.js"></script>
+    <script>
+        let selectedWord = "";
+        let choosenWord = "";
+        let abcArray = abc.split('');
+        let canvas = document.getElementById("hangman");
+        let ctx = canvas.getContext("2d");
+        let parts = 0; 
+
+        init();
+
+        function init() {
+            abcArray.forEach(element => {
+                document.querySelector('.main2').innerHTML += `<div class="abc">${element}</div>`
+               
+            });
+
+        }
+
+        function giveWord() {
+            selectedWord = "";
+            document.querySelector(".loose").style.display="none"
+            document.querySelector('.main').innerHTML = '';
+            console.log("We're working boss!");
+            let randIndex = Math.floor(Math.random() * words.length);
+            choosenWord = Array.from(words[randIndex]);
+            //console.log(choosenWord)
+            choosenWord.forEach(element => {
+                document.querySelector('.main').innerHTML +=
+                    `<div class="wordbox">
+                        <p class="GuessLetter">${element}</p>
+                    </div>`;
+            });
+            resetCanvas(); 
+            parts = 0; 
+        }
+
+        function resetCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function drawGallows(){
+            ctx.strokeStyle = '#444';
+            ctx.lineWidth = 10; 
+            ctx.beginPath();
+            ctx.moveTo(175, 225);
+            ctx.lineTo(5, 225);
+            ctx.moveTo(40, 225);
+            ctx.lineTo(25, 5);
+            ctx.lineTo(100, 5);
+            ctx.lineTo(100, 25);
+            ctx.stroke();
+        
+        }
+
+        
+        function drawHead() {
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            ctx.arc(100, 50, 25, 0, Math.PI*2, true);
+            ctx.closePath();
+            ctx.stroke();
+        }
+
+        function drawBody() {
+            ctx.beginPath();
+            ctx.moveTo(100, 75);
+            ctx.lineTo(100, 140);
+            ctx.stroke();
+        }
+
+        function drawLeftArm() {
+            ctx.beginPath();
+            ctx.moveTo(100, 85);
+            ctx.lineTo(140, 100);
+            ctx.stroke();
+        }
+
+        function drawRightArm() {
+            ctx.beginPath();
+            ctx.moveTo(100, 85);
+            ctx.lineTo(60, 100);
+            ctx.stroke();
+        }
+
+        function drawLeftLeg() {
+            ctx.beginPath();
+            ctx.moveTo(100, 140);
+            ctx.lineTo(125, 190);
+            ctx.stroke();
+        }
+
+        function drawRightLeg() {
+            ctx.beginPath();
+            ctx.moveTo(100, 140);
+            ctx.lineTo(80, 190);
+            ctx.stroke();
+        }
+
+        function drawHangman() {
+            switch (parts) {
+                case 1:
+                    drawGallows()
+                    break;
+                case 2:
+                    drawHead();
+                    break;
+                case 3:
+                    drawBody();
+                    break;
+                case 4:
+                    drawLeftArm();
+                    break;
+                case 5:
+                    drawRightArm();
+                    break;
+                case 6:
+                    drawLeftLeg();
+                    break;
+                case 7:
+                    drawRightLeg();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        function checkLetter(event) {
+            console.log(event.target.innerText);
+            console.log("We're checking...");
+            console.log(choosenWord);
+            let correctGuess = false;
+
+            choosenWord.forEach(element => {
+                if (element == event.target.innerHTML) {
+                    console.log("Match");
+                    document.querySelectorAll('.GuessLetter').forEach((value) => {
+                        if (value.innerHTML == event.target.innerHTML) {
+                            value.style.display = "block";
+                            correctGuess = true;
+                        }
+                    });
+                }
+            });
+
+            if (!correctGuess) {
+                parts++;
+                console.log("part count"+ parts)
+                if(parts>6){
+                    document.querySelector(".loose").style.display="block"
+                }
+                drawHangman();
+            }
+        }
+
+        document.querySelector('.reroll').addEventListener('click', giveWord);
+
+        document.querySelectorAll('.abc').forEach((value) => {
+            value.addEventListener('click', checkLetter);
+        });
+    </script>
 
 </body>
-
-<script>
-    let selectedWord=""
-    let choosenWord=""
-    let abcArray=abc.split('')
-    init()
-
-    function init(){
-        abcArray.forEach(element => {
-            //console.log(element)
-            document.querySelector('.main2').innerHTML+=`<div class="abc">${element}</div>`
-        });
-        
-    }
-    
-    
-    function giveWord(){
-        selectedWord=""
-        document.querySelector('.main').innerHTML=''
-        console.log("we're workin boss!")
-        let randIndex= Math.floor(Math.random() * words.length);
-        choosenWord=Array.from(words[randIndex])
-        //console.log(choosenWord)
-        choosenWord.forEach(element => {
-            document.querySelector('.main').innerHTML+=
-            `<div class="wordbox">
-                <p class="GuessLetter">${element}</p>
-            </div>`
-        });
-
-    }
-
-    function checkLetter(event){
-        console.log(event.target.innerText)
-        console.log("We checkin' ")
-        console.log(choosenWord)
-        choosenWord.forEach(element => {
-            if(element==event.target.innerHTML){
-                console.log("match")
-                document.querySelectorAll('.GuessLetter').forEach((value)=>{
-                        if(value.innerHTML==event.target.innerHTML){
-                            value.style.display= "block"
-                        }
-                })
-            }
-        })
-
-
-        
-
-    }
-
-
-    
-    document.querySelector('.reroll').addEventListener('click',giveWord)
-
-    document.querySelectorAll('.abc').forEach((value)=>{
-        value.addEventListener('click',checkLetter)
-
-    })
-
-
-
-</script>
-
 </html>

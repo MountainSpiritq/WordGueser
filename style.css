@@ -1,5 +1,6 @@
 body{
     background-color: rgb(30, 29, 29);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .wordbox{
@@ -13,13 +14,14 @@ body{
     justify-content: center;
     align-items: center;
     margin: 0.5rem;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   
     font-weight: bolder;
     font-size: xx-large;
     -webkit-user-select:none;
     -moz-user-select:none;
     user-select:none;
     text-transform: capitalize;
+   
 
 }
 
@@ -38,11 +40,13 @@ body{
     -moz-user-select:none;
     user-select:none;
     text-transform: capitalize;
+    cursor: pointer;
 
 }
 
 .main{
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
@@ -59,6 +63,8 @@ body{
     -webkit-user-select:none;
     -moz-user-select:none;
     user-select:none;
+    cursor: pointer;
+    margin: 1rem;
 }
 
 .main2{
@@ -78,6 +84,21 @@ body{
 }
 
 .GuessLetter{
-    display: none;
-    
+    display: none; 
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
 }
+
+.hangedman {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.loose{
+    display: none;
+    text-align: center;
+    font-size: xx-large;
+    color: whitesmoke;
+}
+
