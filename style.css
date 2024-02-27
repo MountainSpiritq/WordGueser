@@ -1,3 +1,8 @@
+*{
+    margin: 0 auto;
+    padding: 0 ;
+    
+}
 body{
     background-color: rgb(30, 29, 29);
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -14,7 +19,7 @@ body{
     justify-content: center;
     align-items: center;
     margin: 0.5rem;
-   
+    animation: fadeIn 0.5s ease-out;
     font-weight: bolder;
     font-size: xx-large;
     -webkit-user-select:none;
@@ -41,6 +46,7 @@ body{
     user-select:none;
     text-transform: capitalize;
     cursor: pointer;
+    transition: all 0.5s ease; 
 
 }
 
@@ -84,8 +90,8 @@ body{
 }
 
 .GuessLetter{
-    display: none; 
-    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+    scale: 0;
+    transition: all 0.5s ease-out, visibility 0.5s ease-out;
 }
 
 .hangedman {
@@ -102,3 +108,25 @@ body{
     color: whitesmoke;
 }
 
+.hide {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    transition: all 0.5s ease; 
+    border: 0;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
